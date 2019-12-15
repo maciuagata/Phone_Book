@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Email;
 
 class UserRegistrationFormType extends AbstractType
 {
@@ -19,7 +21,12 @@ class UserRegistrationFormType extends AbstractType
     {
         $builder
             ->add ('username')
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new Email(['message' => 'Please enter a valid email address.']),
+                    new NotBlank(['message' => 'Please enter your email'])
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
@@ -39,7 +46,8 @@ class UserRegistrationFormType extends AbstractType
                 ],
                 'second_options' => [
                     'label' => 'Repeat Password'
-                ]
+                ],
+                'invalid_message' => 'Your password does not match the confirmation.'
             ])
            
         ;
