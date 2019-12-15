@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+
+ <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+ 
+{% endblock %}
+
+{% block body %}
+<div class="row mt-3">
+<div class="col-8 offset-2">
+<h1 class="text-center">Please Sign in or <a class="btn btn-primary ml-2" href="{{ path('app_register') }}">REGISTER</a></h1>
+
+  <form class="form-signin" method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <label for="inputUsername" class="sr-only">Username:</label>
+        <input type="text" id="inputUsername" name="_username" class="form-control" value="{{ last_username }}" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Sign in
+        </button>
+</form>
+     </div>
+     </div>
+    
+{% endblock %}
