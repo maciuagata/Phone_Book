@@ -12,6 +12,7 @@ class PostControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/login');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        
         $this->assertSelectorTextContains('html h1', 'Please Sign in or ');
     }
 }
