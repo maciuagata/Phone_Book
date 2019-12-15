@@ -189,9 +189,9 @@ class ContactsBookController extends AbstractController
             array('sharedContacts' => $sharedContacts));
     }
     /**
-     * @Route("/terminate-share/{id}", name="terminate-share")
+     * @Route("/stop-share/{id}", name="stop-share")
      */
-    public function terminateShare($id)
+    public function stopShare($id)
     {
         $em = $this->getDoctrine()->getManager();
         $sharedContact = $em->getRepository('App\Entity\Contacts')
@@ -201,4 +201,3 @@ class ContactsBookController extends AbstractController
         return $this->redirect('/sharing');
     }
 }
-

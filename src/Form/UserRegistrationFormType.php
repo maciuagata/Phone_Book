@@ -20,9 +20,8 @@ class UserRegistrationFormType extends AbstractType
         $builder
             ->add ('username')
             ->add('email')
-            ->add('password', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -35,7 +34,14 @@ class UserRegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'first_options' => [
+                    'label' => 'Password',
+                ],
+                'second_options' => [
+                    'label' => 'Repeat Password'
+                ]
             ])
+           
         ;
     }
             
