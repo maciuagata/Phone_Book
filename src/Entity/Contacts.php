@@ -17,7 +17,7 @@ class Contacts
     private $id;
 
     /**
-     * @ORM\Column(type="integer", length=255))
+     * @ORM\Column(type="integer")
      */
     private $user_id;
 
