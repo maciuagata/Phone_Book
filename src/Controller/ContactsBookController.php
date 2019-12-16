@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Contacts;
 use App\Entity\ContactsBook;
 use App\Form\ContactsFormType;
-use Symfony\Component\Security\Core\User\User;
-use App\Entity\Contacts;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ContactsBookController extends AbstractController
 {
@@ -70,26 +69,24 @@ class ContactsBookController extends AbstractController
         $userId = $this->getUser()->getId();
         $contacts = $this->getDoctrine()
             ->getRepository('App\Entity\ContactsBook')
-            ->findBy(array('user_id' => $userId),  array('name' => 'ASC'));
+            ->findBy(array('user_id' => $userId), array('name' => 'ASC'));
         $shContacts = $this->getDoctrine()
-            ->getRepository('App\Entity\Contacts') 
+            ->getRepository('App\Entity\Contacts')
             ->findBy(array('user_id' => $userId));
-        if(!empty($shContacts))
-        {
+        if (!empty($shContacts)) {
             $contactIds = array();
-            foreach ($shContacts as $contact)
-            {
+            foreach ($shContacts as $contact) {
                 $contactId = $contact->getContactId();
                 $contactIds[] = $contactId;
             }
             $sharedContacts = $this->getDoctrine()
-            ->getRepository('App\Entity\ContactsBook')
-            ->findBy(array('id' => $contactIds), array('name' => 'ASC'));
+                ->getRepository('App\Entity\ContactsBook')
+                ->findBy(array('id' => $contactIds), array('name' => 'ASC'));
             return $this->render(
                 'show.html.twig',
                 array('contacts' => $contacts, 'sharedContacts' => $sharedContacts)
             );
-        }else{
+        } else {
             return $this->render(
                 'show.html.twig',
                 array('contacts' => $contacts, 'sharedContacts' => '')
@@ -176,8 +173,7 @@ class ContactsBookController extends AbstractController
             ->getRepository('App\Entity\Contacts')
             ->findBy(array('owner_id' => $userId));
         $contactIds = array();
-        foreach ($contacts as $contact)
-        {
+        foreach ($contacts as $contact) {
             $contactId = $contact->getContactId();
             $contactIds[] = $contactId;
         }
@@ -195,7 +191,7 @@ class ContactsBookController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $sharedContact = $em->getRepository('App\Entity\Contacts')
-        ->findOneBy(array('contact_id' => $id));
+            ->findOneBy(array('contact_id' => $id));
         $em->remove($sharedContact);
         $em->flush();
         return $this->redirect('/sharing');

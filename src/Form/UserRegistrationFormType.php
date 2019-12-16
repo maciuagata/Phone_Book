@@ -4,28 +4,26 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserRegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add ('username')
+            ->add('username')
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email(['message' => 'Please enter a valid email address.']),
-                    new NotBlank(['message' => 'Please enter your email'])
-                ]
+                    new NotBlank(['message' => 'Please enter your email']),
+                ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -45,14 +43,14 @@ class UserRegistrationFormType extends AbstractType
                     'label' => 'Password',
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password'
+                    'label' => 'Repeat Password',
                 ],
-                'invalid_message' => 'Your password does not match the confirmation.'
+                'invalid_message' => 'Your password does not match the confirmation.',
             ])
-           
+
         ;
     }
-            
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

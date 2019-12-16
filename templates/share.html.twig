@@ -1,58 +1,58 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <style>
-        .table {
-            display: table;
-            border-collapse: collapse;
-        }
-        .table .table-row {
-            display: table-row;
-        }
-        .table .table-cell {
-            display: table-cell;
-            text-align: left;
-            vertical-align: top;
-        }
+	<style>
+		.table {
+			display: table;
+			border-collapse: collapse;
+		}
+		.table .table-row {
+			display: table-row;
+		}
+		.table .table-cell {
+			display: table-cell;
+			text-align: left;
+			vertical-align: top;
+		}
 
-        #show-contact {
-            margin-left: 15px;
-        }
-    </style>
-            
-            <h1 class="text-center">Share contacts</h1>
-            <div class="table">
-                <div class="table-row">
-                    <div class="table-cell">Name</div>
-                    <div class="table-cell">Phone</div>
-                    <div class="table-cell">Share with:</div>
-                </div>
-                <div class="table-row">
-                    <div class="table-cell">{{ contact.name }}</div>
-                    <div class="table-cell">{{ contact.number }}</div>
-                    <div class="table-cell">
-                        <form class="form-horizontal" role="form" method="POST"
-                              action="{{ path('begin-share', {'id': contact.id}) }}">
-                            <!-- Contacts -->
-                            <div class="form-group">
-                                <div class="col-md-8">
-                                    <div class="input-group">
-                                        <select name="owner" id="contacts-select" class="form-control" title="">
-                                            <option value="">Please choose a name of contact</option>
-                                            {% for user in users %}
-                                                <option value="{{ user.id }}">{{ user.username }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <div class="input-group-addon input-group-button">
-                                            <button type="submit" id="show-contact" class="btn btn-primary">
-                                                Share
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-   
+		#show-contact {
+			margin-left: 15px;
+		}
+	</style>
+
+	<h1 class="text-center">Share contacts</h1>
+	<div class="table">
+		<div class="table-row">
+			<div class="table-cell">Name</div>
+			<div class="table-cell">Phone</div>
+			<div class="table-cell">Share with:</div>
+		</div>
+		<div class="table-row">
+			<div class="table-cell">{{ contact.name }}</div>
+			<div class="table-cell">{{ contact.number }}</div>
+			<div class="table-cell">
+				<form
+					class="form-horizontal" role="form" method="POST" action="{{ path('begin-share', {'id': contact.id}) }}">
+					<!-- Contacts -->
+					<div class="form-group">
+						<div class="col-md-8">
+							<div class="input-group">
+								<select name="owner" id="contacts-select" class="form-control" title="">
+									<option value="">Please choose a name of contact</option>
+									{% for user in users %}
+										<option value="{{ user.id }}">{{ user.username }}</option>
+									{% endfor %}
+								</select>
+								<div class="input-group-addon input-group-button">
+									<button type="submit" id="show-contact" class="btn btn-primary">
+										Share
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

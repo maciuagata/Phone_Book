@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\User;
 use App\Form\UserRegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +11,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
-
 {
     /**
      * @Route("/login", name="app_login")
@@ -20,11 +20,11 @@ class SecurityController extends AbstractController
         $error = $utils->getLastAuthenticationError();
 
         $lastUsername = $utils->getLastUsername();
-        
+
         return $this->render('security/login.html.twig', [
-            'error'         => $error,
-            'last_username'  => $lastUsername
-            
+            'error' => $error,
+            'last_username' => $lastUsername,
+
         ]);
     }
     /**
@@ -36,26 +36,26 @@ class SecurityController extends AbstractController
         $form = $this->createForm(UserRegistrationFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           
+
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('password')->getData()
-                    
+
                 )
             );
-         
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            
+
             return $this->redirectToRoute('home.index');
         }
         return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
-     /**
+    /**
      * @Route("/logout", name="logout")
      */
     public function logout()

@@ -1,63 +1,70 @@
 {% extends('base.html.twig') %}
 {% block body %}
-    <h1>My Phone Book</h1>
+	<h1>My Phone Book</h1>
 
-<style>
-    th, td {
-        padding: 10px;
-    }
-    th {
-        text-align: left;
-    }
-</style>
+	<style>
+		th,
+		td {
+			padding: 10px;
+		}
+		th {
+			text-align: left;
+		}
+	</style>
 
-{% if contacts is not empty %}
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for contact in contacts %}
-            <tr>
-                <td>{{ contact.name }}</td>
-                <td>{{ contact.number }}</td>
-                <td><a class="btn btn-outline-primary" href="edit-contact/{{ contact.id }}">Edit</a></td>
-                <td><a class="btn btn-outline-primary" href="share-contact/{{ contact.id }}">Share</a></td>
-                <td><a class="btn btn-outline-danger" href="delete-contact/{{ contact.id }}">Delete</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>You have no contacts</p>
-{% endif %}
+	{% if contacts is not empty %}
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Phone</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for contact in contacts %}
+					<tr>
+						<td>{{ contact.name }}</td>
+						<td>{{ contact.number }}</td>
+						<td>
+							<a class="btn btn-outline-primary" href="edit-contact/{{ contact.id }}">Edit</a>
+						</td>
+						<td>
+							<a class="btn btn-outline-primary" href="share-contact/{{ contact.id }}">Share</a>
+						</td>
+						<td>
+							<a class="btn btn-outline-danger" href="delete-contact/{{ contact.id }}">Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p>You have no contacts</p>
+	{% endif %}
 
-{% if sharedContacts is not empty %}
-    <h3 class="mt-2">Shared</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for sharedContact in sharedContacts %}
-            <tr>
-                <td>{{ sharedContact.name }}</td>
-                <td>{{ sharedContact.number }}</td>
-                <td>{{ '' }}</td>
-            </tr>
-        {% endfor %}
-{% else %}
+	{% if sharedContacts is not empty %}
+		<h3 class="mt-2">Shared</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for sharedContact in sharedContacts %}
+					<tr>
+						<td>{{ sharedContact.name }}</td>
+						<td>{{ sharedContact.number }}</td>
+						<td>{{ '' }}</td>
+					</tr>
+				{% endfor %}
+				{% else %}
 
-{% endif %}
-        </tbody>
-    </table>
+			{% endif %}
+		</tbody>
+	</table>
 {% endblock %}
